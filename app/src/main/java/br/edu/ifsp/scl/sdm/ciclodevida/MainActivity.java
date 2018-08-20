@@ -30,14 +30,6 @@ public class MainActivity extends AppCompatActivity {
         telefoneEditText = new EditText(this);
         telefoneEditText.setInputType(InputType.TYPE_CLASS_PHONE);
 
-        // Restaurando dados de estado dinâmicos de execução anterior
-        if (savedInstanceState != null) {
-            String telefone = savedInstanceState.getString("TELEFONE", null);
-            if (telefone != null) {
-                telefoneEditText.setText(telefone);
-            }
-        }
-
         LinearLayout linearLayout = findViewById(R.id.linearLayout);
         linearLayout.addView(telefoneTextView);
         linearLayout.addView(telefoneEditText);
@@ -49,6 +41,19 @@ public class MainActivity extends AppCompatActivity {
 
         // Salvar os dados de estado dinâmicos
         outState.putString("TELEFONE", telefoneEditText.getText().toString());
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        // Restaurando dados de estado dinâmicos de execução anterior
+        if (savedInstanceState != null) {
+            String telefone = savedInstanceState.getString("TELEFONE", null);
+            if (telefone != null) {
+                telefoneEditText.setText(telefone);
+            }
+        }
     }
 
     @Override
